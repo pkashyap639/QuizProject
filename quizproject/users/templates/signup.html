@@ -1,4 +1,29 @@
 {% extends 'base.html' %}
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+
+{% endblock styles %}
+
 {% block content %}
-    <h1>SignUp page</h1>
+{% load crispy_forms_tags %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h1 class="text-center">Sign Up </h1>
+                <form method="post">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{form|crispy}}
+                    </fieldset>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">SignUp</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>    
 {% endblock content %}
