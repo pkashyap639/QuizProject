@@ -12,7 +12,10 @@ def register(req):
             form.save()
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
-            return HttpResponse("Saved")
+            return redirect('login')
     else:
         form = UserRegistrationForm()
     return render(req,'signup.html',{'form':form})
+
+def logout(req):
+    return redirect('login')

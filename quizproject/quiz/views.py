@@ -6,4 +6,6 @@ from django.http import HttpResponse
 
 # Create your views here.
 def quizapp(req):
-    return HttpResponse("QUIZAPP",req)
+    if not req.user.is_authenticated:
+        return redirect('login')
+    return render(req,'index.html')
