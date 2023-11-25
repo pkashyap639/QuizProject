@@ -5,6 +5,7 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
 
 {% endblock styles %}
 {% block content %}
@@ -33,5 +34,28 @@
           </div>
         </div>
       </nav>
+
+      <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <p class="user-detail">Hi, this is {{user.get_username}}</p>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-3 text-center">
+                    <p class="detail-head">Quiz Attempted</p>
+                    <p class="detail-head">0</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <p class="detail-head">Average Score</p>
+                    <p class="detail-head">0</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <p class="detail-head">Lowest / Highest</p>
+                    <p class="detail-head">0 / 0</p>
+                </div>
+            </div>
+        </div>
+      </div>
+
 
 {% endblock content %}
