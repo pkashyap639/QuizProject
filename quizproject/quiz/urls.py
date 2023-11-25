@@ -7,4 +7,5 @@ from django.conf import settings
 from . import views
 urlpatterns = [
     path('', views.quizapp,name='quizapp'),
+    path('attemptquiz', views.attemptQuiz,name='attemptquiz'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

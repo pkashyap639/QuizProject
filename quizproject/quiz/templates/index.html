@@ -22,7 +22,7 @@
                 <a class="nav-link " aria-current="page" href="#">Hi, {{user.get_username}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="#">Attempt Quiz</a>
+                <a class="nav-link " aria-current="page" href="{% url 'attemptquiz' %}">Attempt Quiz</a>
               </li>
               <li class="nav-item">
                 {% if user.is_authenticated %}    
