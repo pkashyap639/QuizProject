@@ -8,4 +8,5 @@ from . import views
 urlpatterns = [
     path('', views.quizapp,name='quizapp'),
     path('attemptquiz', views.attemptQuiz,name='attemptquiz'),
+    path('submitquiz/', views.submitquiz,name='submitquiz'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
