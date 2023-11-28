@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.http import HttpResponse
 from pymongo import MongoClient
 import random
+import json
+
 # Mongo Client
 client = MongoClient('mongodb+srv://pkashyap148:*Password123@quizcluster.dzltjq0.mongodb.net/?authMechanism=DEFAULT')
 db = client['quizproject']
@@ -17,11 +19,18 @@ def quizapp(req):
 #     ques = quizproject.questions.find()
 #     return ques
 
+
 def attemptQuiz(req):
     ques = db.questions.find()
-    qs = []
-    for q in ques:
-        qs.append(q)
-    print(qs[0]['question'])
-    #return HttpResponse(random.sample(qs,5))
-    return render(req,'attemptquiz.html',{'questions':random.sample(qs,5)})
+    qs = list(ques)
+    random_questions = random.sample(qs,5)
+    return render(req,'attemptquiz.html',{'questions': random_questions})
+
+def submitquiz(req):
+    if req.method == 'POST':
+        submitted_answers = {}
+        for key, value in req.POST.items():
+            submitted_answers[key] = value
+        for key in submitted_answers:
+            print(key,submitted_answers[key])
+        return render(req,'submitquiz.html',{'answers': submitted_answers})
