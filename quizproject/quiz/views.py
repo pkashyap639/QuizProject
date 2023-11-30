@@ -29,6 +29,19 @@ def compareAnswers(dict1, dict2):
             score+=1
     return score
 
+def getScoreMsg(score):
+    msg = ""
+    if score == 5:
+        msg = f'Score: {score}/5, You are a Genius !'
+    if score == 4:
+        msg = f'Score: {score}/5, Excellent Work!'
+    if score == 3:
+        msg = f'Score: {score}/5, Good Job !'
+    else:
+        msg = f'Score: {score}/5, Please Try Again!'
+
+    return msg
+
 def submitquiz(req):
     if req.method == 'POST':
         submitted_answers = {}
@@ -51,4 +64,5 @@ def submitquiz(req):
             print('Correct Answer:', correct_answer)
             print('Submitted Answer:', submitted_answers[qid])
         score = compareAnswers(submitted_answers,fetched_questions)
-        return render(req,'submitquiz.html',{'answers': submitted_answers,'fetched':fetched_questions,'score':score})
+        msg = getScoreMsg(score)
+        return render(req,'submitquiz.html',{'answers': submitted_answers,'fetched':fetched_questions,'score':score,'msg':msg})
