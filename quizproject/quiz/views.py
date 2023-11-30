@@ -15,6 +15,7 @@ def quizapp(req):
     if not req.user.is_authenticated:
         return redirect('login')
     useremail = req.user.email
+    
     context = {
         "totalQuiz": len(getAllQuizdata(useremail)),
         "attemptedQuiz":getAllQuizdata(useremail),
@@ -75,9 +76,11 @@ def storeQuizData(score,username,useremail):
     
 def getAllQuizdata(useremail):
     quizData = db.quiz_data.find_one({"useremail":useremail})
+    if quizData is None:
+        return []
     scoresData = quizData['quizes']
     if len(scoresData) == 0:
-        return 0
+        return []
     print(len(scoresData))
     return scoresData
     # for entry in scoresData:
@@ -85,6 +88,8 @@ def getAllQuizdata(useremail):
 
 def getAverageScores(useremail):
     quizData = db.quiz_data.find_one({"useremail":useremail})
+    if quizData is None:
+        return 0
     scoresData = quizData['quizes']
     if len(scoresData) == 0:
         return 0
@@ -96,6 +101,8 @@ def getAverageScores(useremail):
 
 def getLowScore(useremail):
     quizData = db.quiz_data.find_one({"useremail":useremail})
+    if quizData is None:
+        return 0
     scoresData = quizData['quizes']
     if len(scoresData) == 0:
         return 0
@@ -107,6 +114,8 @@ def getLowScore(useremail):
 
 def getHighScore(useremail):
     quizData = db.quiz_data.find_one({"useremail":useremail})
+    if quizData is None:
+        return 0
     scoresData = quizData['quizes']
     if len(scoresData) == 0:
         return 0
