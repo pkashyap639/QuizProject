@@ -14,6 +14,11 @@ db = client['quizproject']
 def quizapp(req):
     if not req.user.is_authenticated:
         return redirect('login')
+    useremail = req.user.email
+    getAllQuizdata(useremail)
+    getAverageScores(useremail)
+    getHighScore(useremail)
+    getLowScore(useremail)
     return render(req,'index.html')
 
 
@@ -64,6 +69,47 @@ def storeQuizData(score,username,useremail):
         db.quiz_data.update_one(query, update_data)
         print("Data Updated")
     
+def getAllQuizdata(useremail):
+    quizData = db.quiz_data.find_one({"useremail":useremail})
+    scoresData = quizData['quizes']
+    if len(scoresData) == 0:
+        return 0
+    return scoresData
+    # for entry in scoresData:
+    #     print(f"Score: {entry['score']}, Time: {entry['time']}")
+
+def getAverageScores(useremail):
+    quizData = db.quiz_data.find_one({"useremail":useremail})
+    scoresData = quizData['quizes']
+    if len(scoresData) == 0:
+        return 0
+    allScores = []
+    for entry in scoresData:
+        allScores.append(entry['score'])
+    print(sum(allScores)/len(allScores))
+    return sum(allScores)/len(allScores)
+
+def getLowScore(useremail):
+    quizData = db.quiz_data.find_one({"useremail":useremail})
+    scoresData = quizData['quizes']
+    if len(scoresData) == 0:
+        return 0
+    allScores = []
+    for entry in scoresData:
+        allScores.append(entry['score'])
+    print(min(allScores))
+    return min(allScores)
+
+def getHighScore(useremail):
+    quizData = db.quiz_data.find_one({"useremail":useremail})
+    scoresData = quizData['quizes']
+    if len(scoresData) == 0:
+        return 0
+    allScores = []
+    for entry in scoresData:
+        allScores.append(entry['score'])
+    print(max(allScores))
+    return max(allScores)
 
 def submitquiz(req):
     if req.method == 'POST':
