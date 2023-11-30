@@ -15,11 +15,15 @@ def quizapp(req):
     if not req.user.is_authenticated:
         return redirect('login')
     useremail = req.user.email
-    getAllQuizdata(useremail)
-    getAverageScores(useremail)
-    getHighScore(useremail)
-    getLowScore(useremail)
-    return render(req,'index.html')
+    context = {
+        "totalQuiz": len(getAllQuizdata(useremail)),
+        "attemptedQuiz":getAllQuizdata(useremail),
+        "averageScore":getAverageScores(useremail),
+        "highScore":getHighScore(useremail),
+        "lowScore":getLowScore(useremail)
+    }
+    
+    return render(req,'index.html',context)
 
 
 def attemptQuiz(req):
@@ -74,6 +78,7 @@ def getAllQuizdata(useremail):
     scoresData = quizData['quizes']
     if len(scoresData) == 0:
         return 0
+    print(len(scoresData))
     return scoresData
     # for entry in scoresData:
     #     print(f"Score: {entry['score']}, Time: {entry['time']}")
