@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from pymongo import MongoClient
 import random
 import json
+from datetime import datetime
 
 # Mongo Client
 client = MongoClient('mongodb+srv://pkashyap148:*Password123@quizcluster.dzltjq0.mongodb.net/?authMechanism=DEFAULT')
@@ -37,10 +38,32 @@ def getScoreMsg(score):
         msg = f'Score: {score}/5, Excellent Work!'
     if score == 3:
         msg = f'Score: {score}/5, Good Job !'
-    else:
+    if score == 1 or score ==2 or score ==0:
         msg = f'Score: {score}/5, Please Try Again!'
 
     return msg
+
+def storeQuizData(score,username,useremail):
+    now = datetime.now()
+    stringTime = now.strftime("%d/%m/%Y %H:%M:%S")
+    checkExistence = db.quiz_data.find_one({"useremail":useremail})
+    if checkExistence is None:
+        quizData = {
+            "useremail": useremail,
+            "username": username,
+            "quizes": [{
+                "score": score,
+                "time" : stringTime
+            }]
+        }
+        db.quiz_data.insert_one(quizData)
+        print("Data INserted For the First Time")
+    else:
+        query = {"useremail": useremail}
+        update_data = {"$push": {"quizes": {"score": score, "time": stringTime}}}
+        db.quiz_data.update_one(query, update_data)
+        print("Data Updated")
+    
 
 def submitquiz(req):
     if req.method == 'POST':
@@ -65,4 +88,5 @@ def submitquiz(req):
             print('Submitted Answer:', submitted_answers[qid])
         score = compareAnswers(submitted_answers,fetched_questions)
         msg = getScoreMsg(score)
+        storeQuizData(score,req.user.username, req.user.email)
         return render(req,'submitquiz.html',{'answers': submitted_answers,'fetched':fetched_questions,'score':score,'msg':msg})
