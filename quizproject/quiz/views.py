@@ -149,4 +149,12 @@ def submitquiz(req):
         score = compareAnswers(submitted_answers,fetched_questions)
         msg = getScoreMsg(score)
         storeQuizData(score,req.user.username, req.user.email)
-        return render(req,'submitquiz.html',{'answers': submitted_answers,'fetched':fetched_questions,'score':score,'msg':msg})
+        context = {
+            'answers': submitted_answers,
+            'fetched':fetched_questions,
+            'score':score,
+            'msg':msg
+        }
+        return render(req,'submitquiz.html',{'context':context})
+    return redirect('/quizapp/')
+
