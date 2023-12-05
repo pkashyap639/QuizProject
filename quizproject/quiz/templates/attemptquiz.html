@@ -2,6 +2,7 @@
 {% block styles %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/attempt.css' %}">
 
 {% endblock styles %}
 
@@ -11,11 +12,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <p class="attemptHead text-center">Attempt Quiz</p>
                 <form method="POST" action="{% url 'submitquiz' %}">
                     {% csrf_token %}
                     
                     {% for i in questions %}
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <p id="question{{ forloop.counter }}"> Question: {{ i.question }}</p>
                         {% for o in i.all_answers %}
                         <div class="form-check">
