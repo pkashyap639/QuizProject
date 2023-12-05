@@ -1,13 +1,14 @@
 .nav-item{
     font-weight: bold;
-    color: #2d2a43;
+    color: #5844E4;
 }
 
 .nav-link{
-    color: #2D2A43;
+    color: #5844E4;
 }
 
-.navbar-brand{
-    color: #2D2A43;
+
+.navbar-brand, .navbar-brand:hover{
+    color: #5844E4;
     font-weight: bold;
 }
