@@ -1,17 +1,31 @@
 .user-detail{
     font-weight: bold;
     font-size: 3rem;
-    color: #2d2a43;
+    color: #fff;
 
 }
 
 .detail-head{
     font-weight: bold;
-    color: #2e2764;
+    color: #fff;
     font-size: 1.5rem;
 }
 
 .table-heading{
     font-weight: bold;
     font-size: 2rem;
+}
+
+.user-detail{
+    color: #5844E4;
+}
+
+.text-bg-custom{
+    background: rgb(46,39,100);
+    background: linear-gradient(90deg, rgba(46,39,100,1) 0%, rgba(88,68,228,1) 15%, rgba(0,212,255,1) 100%);
+    border: 0;
+}
+
+.table-heading{
+    color: #5844E4;
 }

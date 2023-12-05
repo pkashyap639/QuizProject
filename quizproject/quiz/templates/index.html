@@ -38,20 +38,32 @@
       <div class="container">
         <div class="row mt-4">
             <div class="col-md-12 text-center">
-                <p class="user-detail">Hi, this is {{user.get_username}}</p>
+                <p class="user-detail">Hi, this is {{user.get_username | title}}</p>
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-md-3 text-center">
-                    <p class="detail-head">Quiz Attempted</p>
-                    <p class="detail-head">{% if totalQuiz == 0 %}0{% else %}{{totalQuiz}}{% endif %}</p>
+                  <div class="card text-bg-custom mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="detail-head">Quiz Attempted</h5>
+                      <p class="detail-head">{% if totalQuiz == 0 %}0{% else %}{{totalQuiz}}{% endif %}</p>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-3 text-center">
-                    <p class="detail-head">Average Score</p>
-                    <p class="detail-head">{{averageScore | floatformat:2}}</p>
+                  <div class="card text-bg-custom mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="detail-head">Average Score</h5>
+                      <p class="detail-head">{{averageScore | floatformat:2}}</p>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-3 text-center">
-                    <p class="detail-head">Lowest / Highest</p>
-                    <p class="detail-head">{{lowScore}} / {{highScore}}</p>
+                  <div class="card text-bg-custom mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="detail-head">Lowest / Highest</h5>
+                      <p class="detail-head">{{lowScore}} / {{highScore}}</p>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
